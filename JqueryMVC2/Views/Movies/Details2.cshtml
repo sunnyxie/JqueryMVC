@@ -1,0 +1,32 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Details2</title>
+    <script>
+$(document).ready(function(){
+    $("#btn1").click(function(){
+        $("#test").hide();
+    });
+});
+    </script>
+</head>
+<body>
+    <div> 
+        <p>This is a paragraph.</p>
+        <p id="test">This is another paragraph. @(Model.Name)</p>
+
+        <button id="btn1">Click me</button>
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @*@RenderSection("scripts", required: false)*@
+</body>
+</html>
