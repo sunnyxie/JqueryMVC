@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using JqueryMVC2.Models;
+using System.Text.RegularExpressions;
 
 namespace JqueryMVC2.Controllers
 {
@@ -17,6 +18,11 @@ namespace JqueryMVC2.Controllers
         // GET: Movies
         public ActionResult Index()
         {
+            if (System.Runtime.Caching.MemoryCache.Default["TestID"] == null)
+            {
+                System.Runtime.Caching.MemoryCache.Default["TestID"] = "12345";
+            }
+
             return View(db.Movies.ToList());
         }
 
@@ -27,10 +33,21 @@ namespace JqueryMVC2.Controllers
             db.Movies.Add(new Movie { ID = 20, Name = "test 2", Score = 20 * 2, DateOfBirth = System.DateTime.Today.Date });
             db.SaveChanges();
 
+            NamedCaptureReuse();
+
+            var Html1 = @"A<>>BN..>n>C";
+             Html1 = System.Text.RegularExpressions.Regex.Replace(Html1, @"<(.|\n)*?>", string.Empty);
+            Console.WriteLine("Resule " + Html1);
+
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+            else if (id == 13)
+            {
+                throw new OutOfMemoryException("For testing 2.");
+            }
+
             Movie movie = db.Movies.Find(id);
             if (movie == null)
             {
@@ -46,7 +63,8 @@ namespace JqueryMVC2.Controllers
 
             if (id == null)
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return View("Details2");
+                // return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
             Movie movie = db.Movies.Find(id);
             if (movie == null)
@@ -143,6 +161,47 @@ namespace JqueryMVC2.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+
+        protected void NamedCaptureReuse()
+        {
+            string outString = @"one:uno dos:two three:tres";
+            string outPattern = @"(?<someword>\w+):(?<someword>\w+)";
+            var outRegex = new Regex(outPattern);
+            MatchCollection AllMatches = outRegex.Matches(outString);
+
+            int matchNum = 1;
+
+            foreach (Match SomeMatch in AllMatches)
+            {
+                matchNum++;
+                Console.WriteLine(@"Groups[1].Value = " + SomeMatch.Groups[1].Value);
+                Console.WriteLine(@"Groups[""someword""].Value = " + SomeMatch.Groups["someword"].Value);
+
+                foreach (Capture someword in SomeMatch.Groups["someword"].Captures)
+                {
+                    Console.WriteLine("someword Capture: " + someword.Value);
+                }
+            }
+
+            outString = @"Console.WriteLine()";
+            outPattern = @"Write(?:Line)?";
+            Match mat = Regex.Match(outString, outPattern);
+            Console.WriteLine("1` " + mat.Value);
+
+
+            outString = @"Console.WriteLineGogo()";
+            outPattern = @"Write(?:Line)?\w+";
+            mat = Regex.Match(outString, outPattern);
+            Console.WriteLine("1` " + mat.Value);
+
+
+            // \k< name >   Named backreference. Matches the value of a named expression.
+            outString = @"deepdeep55";
+            outPattern = @"(?<double>\w\w)\k<double>";
+             mat = Regex.Match(outString, outPattern);
+            Console.WriteLine("1` " + mat.Value);
+            Console.WriteLine("Resule " + AllMatches.Count);
         }
     }
 }

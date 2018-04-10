@@ -155,6 +155,16 @@ namespace JqueryMVC2.Controllers
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    // Temp code
+                    //var roleStore = new Microsoft.AspNet.Identity.EntityFramework.RoleStore<
+                    //    Microsoft.AspNet.Identity.EntityFramework.IdentityRole>(new ApplicationDbContext());
+                    //var roleManager = new RoleManager<Microsoft.AspNet.Identity.EntityFramework.IdentityRole>(roleStore);
+
+                    //await roleManager.CreateAsync(new 
+                    //    Microsoft.AspNet.Identity.EntityFramework.IdentityRole("CanManageMovies"));
+                    //await UserManager.AddToRoleAsync(user.Id, "CanManageMovies");
+
+                    // ###### Temp
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // For more information on how to enable account confirmation and password reset please visit http://go.microsoft.com/fwlink/?LinkID=320771
