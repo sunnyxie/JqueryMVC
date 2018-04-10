@@ -8,25 +8,158 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+    <link href="~/Styles/cnrl_default.css" rel="stylesheet" />
     <title>Details2</title>
-    <script>
-$(document).ready(function(){
-    $("#btn1").click(function(){
-        $("#test").hide();
-    });
-});
-    </script>
+    <style type="text/css">
+ .body {font-family: Arial, Helvetica, sans-serif;}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 70%;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+
+/* The Close Button */
+.close {
+    color: blue;
+    float: right;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    height:23px; padding: 1px 2px; background-color: gray; color: blue;
+}
+
+.modal-body {padding: 2px 1px;}
+
+.modal-footer {
+    padding: 0px;
+    background-color: gray;
+    color: blue;
+    font-size: 20px;
+    /*height: 42px;*/
+    display:none;
+}
+    </style>
 </head>
 <body>
-    <div> 
+
+    <!-- The Modal -->
+    <div id="myModal" class="modal">
+
+        <!-- Modal content -->
+        <div class="modal-content">
+            <div class="div_table" style="height:23px; padding:0px 0px 0px 0px; background-color: gray; color: blue;width:100%;">
+                @*<h3>Modal Header</h3><span class="close">&times;</span>*@
+                <div class="div_row" style="margin-bottom: 0px;min-height: 16px; width:100%;">
+                    <div class="div_column" style="width:95%;margin-right: 1px;font-size: 19px;">Modal Header Title</div>
+                    <div class="div_column" style="float:right;margin-right: 0px;padding-bottom: 6px;width:3%;"><span class="close">&times;</span></div>
+                </div>
+            </div>
+            <div class="modal-body">
+                <h2>Error: </h2>
+                <p>  Some text in the Modal Body</p>
+                <p>  Some other text...</p>
+
+                <div style="width: 98%; text-align: right;height: 28px;margin-bottom:0px;">
+                    <button type="button" id="btn_OK" Text="OK" Style="width: 60px;height:28px;color:black;">OK</button>
+                    <button type="button" id="btn_Cancel" Text="Cancel" onclick="btnCancelClick();" Style="height:28px;width: 60px;color:black;">Cancel</button>
+                    @*<asp:Button runat="server" ID="NewCrncy" Text="OK" OnClientClick="return AddNewCrncyValue();" Style="width: 60px" />
+                     <asp:Button runat="server" ID="CancelCreate" Text="Cancel" OnClientClick="return CrncyNew_hide();" Style="width: 60px" />*@
+                </div>
+
+            </div>
+            <div class="modal-footer" style="width:100%;font-size: 18px;margin-top:0px;padding-bottom:0px;text-align: right;">
+            </div>
+        </div>
+
+    </div>
+    <div>
         <p>This is a paragraph.</p>
-        <p id="test">This is another paragraph. @(Model.Name)</p>
+        <p id="test">This is another paragraph. @@ (Model.Name)</p>
 
         <button id="btn1">Click me</button>
     </div>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    <button id="myBtn" type="button" onclick="ShowModal();">Open Modal</button>
+
+    @*@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")*@
     @*@RenderSection("scripts", required: false)*@
+
+    <script type="text/javascript">
+        //$(document).ready(function(){
+        //$("#btn1").click(function(){
+        //    $("#test").hide();
+        // });
+        // });
+
+        function ShowModal() {
+            // Get the modal
+            var modal = document.getElementById('myModal');
+
+            // Get the button that opens the modal
+            //var btn = document.getElementById("myBtn");
+
+
+            // When the user clicks the button, open the modal
+            //btn.onclick = function () {
+                modal.style.display = "block";
+            //}
+        }
+        var modal = document.getElementById('myModal');
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        function btnCancelClick() {
+            var modal = document.getElementById('myModal');
+            modal.style.display = "none";
+        }
+    </script>
 </body>
 </html>
