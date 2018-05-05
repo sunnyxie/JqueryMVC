@@ -18,10 +18,10 @@ namespace JqueryMVC2.Controllers
         // GET: Movies
         public ActionResult Index()
         {
-            if (System.Runtime.Caching.MemoryCache.Default["TestID"] == null)
-            {
-                System.Runtime.Caching.MemoryCache.Default["TestID"] = "12345";
-            }
+            //if (System.Runtime.Caching.MemoryCache.Default["TestID"] == null)
+            //{
+            //    System.Runtime.Caching.MemoryCache.Default["TestID"] = "12345";
+            //}
 
             return View(db.Movies.ToList());
         }

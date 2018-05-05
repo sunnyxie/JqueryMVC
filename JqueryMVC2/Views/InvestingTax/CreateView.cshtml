@@ -1,0 +1,114 @@
+﻿@model JqueryMVC2.Models.InvestingTax
+@Styles.Render("~/Content/me_default.css")
+
+@{
+    ViewBag.Title = "CreateView";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+}
+
+<h2>CreateView</h2>
+
+
+@using (Html.BeginForm()) 
+{
+    @Html.AntiForgeryToken()
+    
+    <div class="form-horizontal">
+        <h4>InvestingTax</h4>
+        <hr />
+        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <div class="form-group">
+            @Html.LabelFor(model => model.Type, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })*@
+                @Html.DropDownListFor(model => model.Type, new SelectList(
+                  JqueryMVC2.Models.InvestingTax.TypeList, "Key", "Value"), 
+                  htmlAttributes: new { @class = "control-label col-md-2" })
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Count, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Count, new { htmlAttributes = new { @class = "form-control", @Value = "200" } })
+                @Html.ValidationMessageFor(model => model.Count, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.Price, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Price, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Price, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.CommissionFee, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.CommissionFee, new { htmlAttributes = new { @class = "form-control", @Value = "6.95" } })
+                @Html.ValidationMessageFor(model => model.CommissionFee, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.SettleDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @*@Html.EditorFor(model => model.SettleDate, new { htmlAttributes = new { @class = "form-control" } })*@
+                <input type="text" value="7/23/2017" style="width: 100px;" name="Date" id="SettleDate" class="hasDatepicker" />
+                @Html.ValidationMessageFor(model => model.SettleDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.TradeDate, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.TradeDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.TradeDate, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(model => model.PicturePath, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.PicturePath, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PicturePath, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-offset-2 col-md-10">
+                @*<input type="submit" value="Create" class="btn btn-default" />*@
+                <input type="button" value="Create" class="btn btn-default" onclick="location.href='@Url.Action("Create", "InvestingTax", new { id = Model.ID })'" />
+            </div>
+        </div>
+    </div>
+}
+
+<div>
+    <div class="div_table">
+        <div class="div_column .col-md-8">
+            <div class="div_row">
+                HELLO
+            </div>
+            <div class="div_row">
+                HELLO_222
+            </div>
+
+        </div>
+        <div class="div_column .col-md-8">
+            WORLD
+        </div>
+    </div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        console.log("yes, ready.")
+        $("#SettleDate").datepicker();
+    });
+</script>
