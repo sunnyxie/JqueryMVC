@@ -11,9 +11,10 @@ namespace JqueryMVC2.Models
         public int ID { get; set; }
 
          [Required]
-        public int Type { get; set; }
+         public int Type { get; set; }
 
-        public decimal Price { get; set; }
+         [Required]
+         public decimal Price { get; set; }
 
         public double CommissionFee { get; set; }
 
@@ -24,6 +25,7 @@ namespace JqueryMVC2.Models
         [DisplayFormat(DataFormatString ="{0:yyyy-MM-dd}",ApplyFormatInEditMode = true)]
         public DateTime SettleDate { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime TradeDate { get; set; }
 
         public double Score { get; set; }
@@ -41,6 +43,5 @@ namespace JqueryMVC2.Models
         
         }
 
-        public DateTime? DateOfBirth { get; set; }
     }
 }
