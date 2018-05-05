@@ -6,6 +6,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace JqueryMVC2.Models
 {
+    // The property Tax;
     public class InvestingTax
     {
         public int ID { get; set; }
